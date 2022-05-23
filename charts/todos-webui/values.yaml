@@ -57,6 +57,6 @@ autoscaling:
 
 todosWebui:
   username: "Nacho Libre"
-  placeholder: "Make bacon pancakes"
+  placeholder: "Make bacon pancakes!"
   livenessPath: "/actuator/health/liveness"
   readinessPath: "/actuator/health/readiness"
