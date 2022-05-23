@@ -56,7 +56,7 @@ autoscaling:
   targetMemoryUtilizationPercentage: 80
 
 todosWebui:
-  username: "Bob"
-  placeholder: "Mow the yard"
+  username: "Nacho Libre"
+  placeholder: "Make bacon pancakes"
   livenessPath: "/actuator/health/liveness"
   readinessPath: "/actuator/health/readiness"
