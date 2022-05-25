@@ -48,15 +48,9 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 80
-
-todosWebui:
-  username: "Nacho Libre"
-  placeholder: "Make bacon pancakes!"
-  livenessPath: "/actuator/health/liveness"
-  readinessPath: "/actuator/health/readiness"
+todos:
+  webui:
+    username: "Sponge Bob"
+    placeholder: "Make 1000 crabby patties"
+    livenessPath: "/actuator/health/liveness"
+    readinessPath: "/actuator/health/readiness"

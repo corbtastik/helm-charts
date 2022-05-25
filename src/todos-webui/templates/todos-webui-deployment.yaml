@@ -31,22 +31,21 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: TODOS_WEBUI_PLACEHOLDER
-              value: {{ .Values.todosWebui.placeholder | quote }}
-            - name: SPRING_SECURITY_USER_NAME
-              value: {{ .Values.todosWebui.username | quote }}
+          envFrom:
+          - configMapRef:
+              name: {{ include "todos-webui.fullname" . }}
+              optional: true
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: {{ .Values.todosWebui.livenessPath | quote }}
+              path: {{ .Values.todos.webui.livenessPath | quote }}
               port: http
           readinessProbe:
             httpGet:
-              path: {{ .Values.todosWebui.readinessPath | quote }}
+              path: {{ .Values.todos.webui.readinessPath | quote }}
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
