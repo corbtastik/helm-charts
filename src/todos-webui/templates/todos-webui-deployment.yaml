@@ -26,7 +26,7 @@ spec:
       securityContext:
         {{- toYaml .Values.todos.webui.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Values.todos.webui.name }}
           securityContext:
             {{- toYaml .Values.todos.webui.securityContext | nindent 12 }}
           image: "{{ .Values.todos.webui.image.repository }}:{{ .Values.todos.webui.image.tag | default .Chart.AppVersion }}"
