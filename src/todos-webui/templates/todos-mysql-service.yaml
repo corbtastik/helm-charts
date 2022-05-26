@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "todos.mysql.name" . }}
+  labels:
+  {{- include "todos.mysql.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.todos.mysql.service.type }}
+  ports:
+    - port: {{ .Values.todos.mysql.service.port }}
+      targetPort: {{ .Values.todos.mysql.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+  {{- include "todos.mysql.selectorLabels" . | nindent 4 }}

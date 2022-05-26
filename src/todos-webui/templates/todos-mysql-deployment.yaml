@@ -34,10 +34,11 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "todos.mysql.name" . }}
-                optional: true
+            - secretRef:
+                name: {{ include "todos.mysql.name" . }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.todos.mysql.service.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
