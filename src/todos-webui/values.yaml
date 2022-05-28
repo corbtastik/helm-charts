@@ -1,56 +1,34 @@
 # Default values for todos components
 todos:
   imagePullSecrets: []
-  serviceAccount:
-    annotations: { }
-    name: todos-sa
   webui:
     name: todos-webui
+    serviceAccount:
+      annotations: { }
+      name: todos-sa
     replicaCount: 1
     podAnnotations: {}
     podSecurityContext: {}
     securityContext: {}
     resources: {}
-    service:
-      type: ClusterIP
-      port: 8080
+    services:
+      internal:
+        name: http
+        protocol: TCP
+        type: ClusterIP
+        port: 8080
+        targetPort: 8080
+      external:
+        name: http-lb
+        protocol: TCP
+        type: LoadBalancer
+        port: 8080
+        targetPort: 8080
     image:
       repository: quay.io/corbsmartin/todos-webui
       tag: 1.0.0
       pullPolicy: Always
     username: "Sponge Bob"
     placeholder: "Make 1000 crabby patties"
-    livenessPath: "/actuator/health/liveness"
-    readinessPath: "/actuator/health/readiness"
-  mysql:
-    name: todos-mysql
-    replicaCount: 1
-    podAnnotations: {}
-    podSecurityContext: {}
-    securityContext: {}
-    resources: {}
-    service:
-      type: ClusterIP
-      port: 8080
-    image:
-      repository: quay.io/corbsmartin/todos-mysql
-      tag: 1.0.0
-      pullPolicy: Always
-    livenessPath: "/actuator/health/liveness"
-    readinessPath: "/actuator/health/readiness"
-  edge:
-    name: todos-edge
-    replicaCount: 1
-    podAnnotations: {}
-    podSecurityContext: {}
-    securityContext: {}
-    resources: {}
-    service:
-      type: LoadBalancer
-      port: 8080
-    image:
-      repository: quay.io/corbsmartin/todos-edge
-      tag: 1.0.0
-      pullPolicy: Always
     livenessPath: "/actuator/health/liveness"
     readinessPath: "/actuator/health/readiness"

@@ -1,88 +1,30 @@
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "todos.chart" -}}
+{{/* Name and version of todos-webui Helm Chart */}}
+{{- define "todos.webui.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "todos.serviceAccountName" -}}
-{{- .Values.todos.serviceAccount.name }}
+{{/* Name of todos-webui Service Account */}}
+{{- define "todos.webui.serviceAccountName" -}}
+{{- .Values.todos.webui.serviceAccount.name }}
 {{- end }}
 
-{{/*
-Expand the name of the chart.
-*/}}
+{{/* Name of todos-webui application. */}}
 {{- define "todos.webui.name" -}}
 {{- .Values.todos.webui.name | trunc 63 }}
 {{- end }}
 
-{{/*
-Common labels
-*/}}
+{{/* All labels for todos-webui, includes selector labels */}}
 {{- define "todos.webui.labels" -}}
-helm.sh/chart: {{ include "todos.chart" . }}
+helm.sh/chart: {{ include "todos.webui.chart" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{ include "todos.webui.selectorLabels" . }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
-{{/*
-Selector labels
-*/}}
+{{/* Selector labels for todos-webui, long and short app & version labels */}}
 {{- define "todos.webui.selectorLabels" -}}
+app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/name: {{ include "todos.webui.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "todos.mysql.name" -}}
-{{- .Values.todos.mysql.name | trunc 63 }}
-{{- end }}
-
-{{/*
-Common labels
-*/}}
-{{- define "todos.mysql.labels" -}}
-helm.sh/chart: {{ include "todos.chart" . }}
-{{ include "todos.mysql.selectorLabels" . }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Selector labels
-*/}}
-{{- define "todos.mysql.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "todos.mysql.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "todos.edge.name" -}}
-{{- .Values.todos.edge.name | trunc 63 }}
-{{- end }}
-
-{{/*
-Common labels
-*/}}
-{{- define "todos.edge.labels" -}}
-helm.sh/chart: {{ include "todos.chart" . }}
-{{ include "todos.edge.selectorLabels" . }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Selector labels
-*/}}
-{{- define "todos.edge.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "todos.edge.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+app: {{ include "todos.webui.name" . }}
+version: {{ .Chart.AppVersion }}
 {{- end }}

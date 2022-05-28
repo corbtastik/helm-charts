@@ -17,8 +17,10 @@ spec:
         app.kubernetes.io/name: todos-db
         app.kubernetes.io/component: backend
     spec:
+      {{- with .Values.todos.imagePullSecrets }}
       imagePullSecrets:
-        - name: 15732902-corbett-reg-sa-pull-secret
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: todos-db
           args:

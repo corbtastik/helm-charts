@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "todos.webui.name" . }}:{{ .Values.todos.webui.service.port }}']
+      args: ['{{ include "todos.webui.name" . }}:{{ .Values.todos.webui.services.internal.port }}']
   restartPolicy: Never
