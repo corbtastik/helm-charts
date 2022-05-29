@@ -13,12 +13,14 @@ todos:
     resources: {}
     services:
       internal:
+        enabled: true
         name: http
         protocol: TCP
         type: ClusterIP
         port: 8080
         targetPort: 8080
       external:
+        enabled: false
         name: http-lb
         protocol: TCP
         type: LoadBalancer
