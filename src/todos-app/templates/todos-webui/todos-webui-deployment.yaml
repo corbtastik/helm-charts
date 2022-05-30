@@ -29,23 +29,23 @@ spec:
         - name: {{ .Values.todos.webui.name }}
           securityContext:
             {{- toYaml .Values.todos.webui.securityContext | nindent 12 }}
-          image: "{{ .Values.todos.webui.image.repository }}:{{ .Values.todos.webui.image.tag | default .Chart.AppVersion }}"
+          image: {{ .Values.todos.webui.image.repository }}:{{ .Values.todos.webui.image.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.todos.webui.image.pullPolicy }}
           envFrom:
-          - configMapRef:
-              name: {{ include "todos.webui.name" . }}
-              optional: true
+            - configMapRef:
+                name: {{ include "todos.webui.name" . }}
+                optional: true
           ports:
             - name: http
-              containerPort: {{ .Values.todos.webui.service.port }}
+              containerPort: {{ .Values.todos.webui.services.internal.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: {{ .Values.todos.webui.livenessPath | quote }}
+              path: {{ .Values.todos.webui.livenessPath }}
               port: http
           readinessProbe:
             httpGet:
-              path: {{ .Values.todos.webui.readinessPath | quote }}
+              path: {{ .Values.todos.webui.readinessPath }}
               port: http
           resources:
             {{- toYaml .Values.todos.webui.resources | nindent 12 }}

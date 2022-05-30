@@ -5,10 +5,10 @@ metadata:
   labels:
   {{- include "todos.mysql.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.todos.mysql.service.type }}
+  type: {{ .Values.todos.mysql.services.internal.type }}
   ports:
-    - port: {{ .Values.todos.mysql.service.port }}
-      targetPort: {{ .Values.todos.mysql.service.port }}
+    - port: {{ .Values.todos.mysql.services.internal.port }}
+      targetPort: {{ .Values.todos.mysql.services.internal.port }}
       protocol: TCP
       name: http
   selector:

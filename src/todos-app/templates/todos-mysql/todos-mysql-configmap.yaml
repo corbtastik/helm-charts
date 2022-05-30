@@ -7,4 +7,4 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: mysql
   MYSQL_DATABASE: todos
-  MYSQL_HOST: todos-db
+  MYSQL_HOST: {{ include "todos.db.name" . }}.{{ .Release.Namespace }}.svc.cluster.local

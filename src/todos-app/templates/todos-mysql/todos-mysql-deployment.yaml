@@ -29,7 +29,7 @@ spec:
         - name: {{ .Values.todos.mysql.name }}
           securityContext:
           {{- toYaml .Values.todos.mysql.securityContext | nindent 12 }}
-          image: "{{ .Values.todos.mysql.image.repository }}:{{ .Values.todos.mysql.image.tag | default .Chart.AppVersion }}"
+          image: {{ .Values.todos.mysql.image.repository }}:{{ .Values.todos.mysql.image.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.todos.mysql.image.pullPolicy }}
           envFrom:
             - configMapRef:
@@ -38,15 +38,15 @@ spec:
                 name: {{ include "todos.mysql.name" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.todos.mysql.service.port }}
+              containerPort: {{ .Values.todos.mysql.services.internal.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: {{ .Values.todos.mysql.livenessPath | quote }}
+              path: {{ .Values.todos.mysql.livenessPath }}
               port: http
           readinessProbe:
             httpGet:
-              path: {{ .Values.todos.mysql.readinessPath | quote }}
+              path: {{ .Values.todos.mysql.readinessPath }}
               port: http
           resources:
   {{- toYaml .Values.todos.mysql.resources | nindent 12 }}

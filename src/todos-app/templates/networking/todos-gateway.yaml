@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: todos-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - {{ include "todos.webui.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
+        - {{ include "todos.mysql.name" . }}.{{ .Release.Namespace }}.svc.cluster.local

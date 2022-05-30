@@ -1,7 +1,7 @@
 # Default values for todos components
+system: todos
 todos:
-  imagePullSecrets:
-    - name: "mysql-image-pull-secret"
+  imagePullSecrets: []
   serviceAccount:
     annotations: { }
     name: todos-sa
@@ -12,9 +12,21 @@ todos:
     podSecurityContext: {}
     securityContext: {}
     resources: {}
-    service:
-      type: ClusterIP
-      port: 8080
+    services:
+      internal:
+        enabled: true
+        name: http
+        protocol: TCP
+        type: ClusterIP
+        port: 8080
+        targetPort: 8080
+      external:
+        enabled: false
+        name: http-lb
+        protocol: TCP
+        type: LoadBalancer
+        port: 8080
+        targetPort: 8080
     image:
       repository: quay.io/corbsmartin/todos-webui
       tag: 1.0.0
@@ -30,28 +42,50 @@ todos:
     podSecurityContext: {}
     securityContext: {}
     resources: {}
-    service:
-      type: ClusterIP
-      port: 8080
+    services:
+      internal:
+        enabled: true
+        name: http
+        protocol: TCP
+        type: ClusterIP
+        port: 8080
+        targetPort: 8080
+      external:
+        enabled: false
+        name: http-lb
+        protocol: TCP
+        type: LoadBalancer
+        port: 8080
+        targetPort: 8080
     image:
       repository: quay.io/corbsmartin/todos-mysql
       tag: 1.0.0
       pullPolicy: Always
     livenessPath: "/actuator/health/liveness"
     readinessPath: "/actuator/health/readiness"
-  edge:
-    name: todos-edge
+  db:
+    name: todos-db
     replicaCount: 1
     podAnnotations: {}
     podSecurityContext: {}
     securityContext: {}
     resources: {}
-    service:
-      type: LoadBalancer
-      port: 8080
+    services:
+      internal:
+        enabled: true
+        name: http
+        protocol: TCP
+        type: ClusterIP
+        port: 3306
+        targetPort: 3306
+      external:
+        enabled: false
+        name: http-lb
+        protocol: TCP
+        type: LoadBalancer
+        port: 3306
+        targetPort: 3306
     image:
-      repository: quay.io/corbsmartin/todos-edge
-      tag: 1.0.0
+      repository: mysql
+      tag: 8.0
       pullPolicy: Always
-    livenessPath: "/actuator/health/liveness"
-    readinessPath: "/actuator/health/readiness"
