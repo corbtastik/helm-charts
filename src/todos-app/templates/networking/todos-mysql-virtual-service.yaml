@@ -6,7 +6,7 @@ metadata:
   {{- include "todos.mysql.labels" . | nindent 4 }}
 spec:
   hosts:
-    - {{ include "todos.mysql.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
+    - "*"
   gateways:
     - todos-gateway
   http:
@@ -15,6 +15,6 @@ spec:
             prefix: /todos
       route:
         - destination:
-            host: {{ include "todos.mysql.name" . }}
+            host: {{ include "todos.mysql.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
             port:
               number: {{ .Values.todos.mysql.services.internal.port }}

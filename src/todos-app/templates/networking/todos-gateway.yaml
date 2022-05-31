@@ -11,5 +11,4 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - {{ include "todos.webui.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
-        - {{ include "todos.mysql.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
+        - "*"

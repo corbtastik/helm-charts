@@ -10,6 +10,6 @@ spec:
     - port: {{ .Values.todos.db.services.internal.port }}
       targetPort: {{ .Values.todos.db.services.internal.port }}
       protocol: TCP
-      name: http
+      name: tcp
   selector:
   {{- include "todos.db.selectorLabels" . | nindent 4 }}
