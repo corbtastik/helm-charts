@@ -1,5 +1,15 @@
 # Default values for todos components
 system: todos
+# -------------------------------------------------------------------------------------------------
+# Istio Gateway variables
+# -------------------------------------------------------------------------------------------------
+istio:
+  enabled: false
+  gateway:
+    enabled: false
+    name: todos-gateway
+    hosts:
+      - "*"
 todos:
   imagePullSecrets: []
   serviceAccount:

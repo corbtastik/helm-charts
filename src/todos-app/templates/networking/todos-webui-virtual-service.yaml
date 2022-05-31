@@ -1,3 +1,4 @@
+{{ if and .Values.istio.enabled }}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -18,3 +19,4 @@ spec:
             host: {{ include "todos.webui.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
             port:
               number: {{ .Values.todos.webui.services.internal.port }}
+  {{ end }}
