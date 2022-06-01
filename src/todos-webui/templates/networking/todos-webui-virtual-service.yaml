@@ -1,7 +1,10 @@
+{{ if and .Values.istio.enabled }}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: todos
+  name: {{ include "todos.webui.name" . }}
+  labels:
+  {{- include "todos.webui.labels" . | nindent 4 }}
 spec:
   hosts:
     - "*"
@@ -13,6 +16,7 @@ spec:
             prefix: /
       route:
         - destination:
-            host: todos-webui
+            host: {{ include "todos.webui.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
             port:
-              number: 8080
+              number: {{ .Values.todos.webui.services.internal.port }}
+  {{ end }}

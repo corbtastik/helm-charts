@@ -1,4 +1,15 @@
 # Default values for todos components
+# -------------------------------------------------------------------------------------------------
+# Istio Gateway variables
+# -------------------------------------------------------------------------------------------------
+istio:
+  enabled: true
+  gateway:
+    enabled: true
+    name: todos-gateway
+    hosts:
+      - "*"
+# Default values for todos components
 todos:
   imagePullSecrets: []
   webui:
@@ -7,7 +18,8 @@ todos:
       annotations: { }
       name: todos-sa
     replicaCount: 1
-    podAnnotations: {}
+    podAnnotations:
+      sidecar.istio.io/inject: "true"
     podSecurityContext: {}
     securityContext: {}
     resources: {}

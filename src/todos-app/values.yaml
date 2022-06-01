@@ -4,9 +4,9 @@ system: todos
 # Istio Gateway variables
 # -------------------------------------------------------------------------------------------------
 istio:
-  enabled: false
+  enabled: true
   gateway:
-    enabled: false
+    enabled: true
     name: todos-gateway
     hosts:
       - "*"
@@ -18,7 +18,8 @@ todos:
   webui:
     name: todos-webui
     replicaCount: 1
-    podAnnotations: {}
+    podAnnotations:
+      sidecar.istio.io/inject: "true"
     podSecurityContext: {}
     securityContext: {}
     resources: {}
@@ -48,7 +49,8 @@ todos:
   mysql:
     name: todos-mysql
     replicaCount: 1
-    podAnnotations: {}
+    podAnnotations:
+      sidecar.istio.io/inject: "true"
     podSecurityContext: {}
     securityContext: {}
     resources: {}
@@ -76,7 +78,8 @@ todos:
   db:
     name: todos-db
     replicaCount: 1
-    podAnnotations: {}
+    podAnnotations:
+      sidecar.istio.io/inject: "true"
     podSecurityContext: {}
     securityContext: {}
     resources: {}
