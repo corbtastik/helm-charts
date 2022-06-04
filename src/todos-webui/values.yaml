@@ -15,7 +15,7 @@ todos:
   webui:
     name: todos-webui
     route:
-      enabled: true
+      enabled: false
     serviceAccount:
       annotations: { }
       name: todos-sa
@@ -35,7 +35,7 @@ todos:
         targetPort: 8080
       external:
         enabled: false
-        name: http-lb
+        name: http
         protocol: TCP
         type: LoadBalancer
         port: 8080
