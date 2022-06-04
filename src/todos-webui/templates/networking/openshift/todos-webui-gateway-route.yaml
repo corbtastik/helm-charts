@@ -1,0 +1,20 @@
+{{ if and .Values.istio.enabled .Values.istio.gateway.enabled .Values.todos.webui.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: todos-gateway
+  namespace: istio-system
+  labels:
+    maistra.io/gateway-name: todos-gateway
+    maistra.io/gateway-namespace: dev
+  annotations:
+    maistra.io/original-host: '*'
+spec:
+  to:
+    kind: Service
+    name: istio-ingressgateway
+    weight: 100
+  port:
+    targetPort: http2
+  wildcardPolicy: None
+{{ end }}

@@ -3,9 +3,9 @@
 # Istio Gateway variables
 # -------------------------------------------------------------------------------------------------
 istio:
-  enabled: true
+  enabled: false
   gateway:
-    enabled: true
+    enabled: false
     name: todos-gateway
     hosts:
       - "*"
@@ -14,6 +14,8 @@ todos:
   imagePullSecrets: []
   webui:
     name: todos-webui
+    route:
+      enabled: true
     serviceAccount:
       annotations: { }
       name: todos-sa
