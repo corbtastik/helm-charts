@@ -21,3 +21,5 @@ render:
 	@helm template --namespace $(NAMESPACE) \
 		$(RELEASE) src/todos-webui > .rendered/$(RELEASE).yaml
 
+client-server-certs:
+	@./scripts/client-server-certs.sh
