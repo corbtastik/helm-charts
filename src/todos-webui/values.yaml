@@ -3,12 +3,16 @@
 # Istio Gateway variables
 # -------------------------------------------------------------------------------------------------
 istio:
-  enabled: false
+  enabled: true
   gateway:
-    enabled: false
+    enabled: true
     name: todos-gateway
     hosts:
       - "*"
+    TLS:
+      enabled: true
+      mode: SIMPLE
+      credentialName: todos-tls
 # Default values for todos components
 todos:
   imagePullSecrets: []

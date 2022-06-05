@@ -1,0 +1,19 @@
+{{ if and .Values.istio.enabled .Values.istio.gateway.enabled .Values.istio.gateway.TLS.enabled }}
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ .Values.istio.gateway.name }}
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+          mode: SIMPLE
+          credentialName: {{ .Values.istio.gateway.TLS.credentialName }}
+      hosts:
+        - todos-webui.todos.io
+{{ end }}
